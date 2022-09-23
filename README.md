@@ -1,7 +1,7 @@
 # HSIA-Cloud
 **This project is for assignment purpose only.**
 
-<br /><br />
+<br />
 
 User Data
 #!/bin/bash
