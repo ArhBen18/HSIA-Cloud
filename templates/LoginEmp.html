@@ -1,0 +1,64 @@
+<!--Author: Lai Liang Chun-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HSIA Management - Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        crossorigin="anonymous" />
+
+
+</head>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div> -->
+
+    <!--Display Error Message-->
+    <div class="alert alert-danger alert-dismissible">
+        {{ message }}
+    </div>
+
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6">
+                <div class="card px-5 py-5" id="form1">
+                    <form method="POST" action="/login" enctype="multipart/form-data">
+                        <h3 align="center">Login</h3>
+                        <div class="form-group">
+                            <label for="userID">User ID</label>
+                            <input type="text" class="form-control" id="userID" name="userID"
+                                placeholder="Enter user ID" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Enter password" />
+
+                        </div>
+                        <br />
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-primary">LOGIN</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

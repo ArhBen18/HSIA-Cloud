@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+	<title>HSIA Management - Company Directories</title>
+</head>
+
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">HSIA HR Panel</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="/home">
+					<i class='bx bxs-dashboard'></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="/cpdl">
+					<i class='bx bxs-user-check'></i>
+					<span class="text">Company Directory - List</span>
+				</a>
+			</li>
+			<li>
+				<a href="/cpdg">
+					<i class='bx bxs-caret-down-circle'></i>
+					<span class="text">Company Directory - Grid</span>
+				</a>
+			</li>
+			<li>
+				<a href="/addpemp">
+					<i class='bx bxs-add-to-queue'></i>
+					<span class="text">Add Employees
+					</span>
+				</a>
+			</li>
+
+		</ul>
+
+		<ul class="side-menu">
+			<li>
+				<a href="/logout" class="logout">
+					<i class='bx bx-log-out-circle'></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu'></i>
+			<a href="#" class="nav-link">Categories</a>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="notification">
+				<i class='bx bxs-bell'></i>
+				<span class="num">8</span>
+			</a>
+			<a href="#" class="profile">
+				<img src="{{ url_for('static', filename='image/userpp.png') }}" style="width: 30px; height: 30px;">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<div class="head-title">
+			<div class="left">
+				<h1>Company Directories</h1>
+				<ul class="breadcrumb">
+					<li>
+						<a href="#">Dashboard</a>
+					</li>
+					<li><i class='bx bx-chevron-right'></i></li>
+					<li>
+						<a class="active" href="#">Company Directories</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- MAIN -->
+		<div class="container-fluid px-4">
+
+			<!-- Header-->
+			<div class="card mt-4">
+				<div class="card-header">
+					<h4>View Customer </h4>
+				</div>
+				<div class="card-body">
+
+
+					<!-- Table Content -->
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Position</th>
+								<th>Email</th>
+								<th></th>
+								<th></th>
+							</tr>
+
+						</thead>
+
+						<tbody>
+
+
+							<!-- for loop the variable from the database-->
+							<!-- vars[0] represent the attribute 0 which is the employee ID in the table and retireve it -->
+							{% for vars in var %}
+							<tr>
+								<td>{{ vars[0] }}</td>
+								<td>{{ vars[1] }}</td>
+								<td>{{ vars[2] }}</td>
+								<td>{{ vars[6] }}</td>
+
+								<!-- end for loop-->
+
+
+								<!-- create the edit button-->
+
+								<td>
+									<a href="/viewSpecific/{{ vars[0] }}" class="btn btn-success">View</a>
+								</td>
+								<td>
+									<a href="/goedit/{{ vars[0] }}" class="btn btn-success">Edit</a>
+								</td>
+
+							</tr>
+							{% endfor %}
+
+						</tbody>
+
+					</table>
+
+					
+
+				</div>
+			</div>
+
+			</main>
+			<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+
+	<!-- Calling the java script function-->
+	<script src="{{ url_for('static', filename='jscript/script.js') }}"></script>
+
+</body>
+
+</html>

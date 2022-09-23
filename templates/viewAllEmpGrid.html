@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        /* HIDE RADIO */
+        [type=radio] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* IMAGE STYLES */
+        [type=radio]+img {
+            cursor: pointer;
+        }
+
+        /* CHECKED STYLES */
+        [type=radio]:checked+img {
+            outline: 3px solid #d3d3d3;
+        }
+
+        input:focus {
+            outline: 2px solid #b4cfe0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            padding: 10px;
+        }
+
+        .grid-item {
+            width: 250px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            margin: 15px;
+        }
+    </style>
+
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+
+    <title>HSIA Management - Company Directories</title>
+</head>
+
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <i class='bx bxs-smile'></i>
+            <span class="text">HSIA HR Panel</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="/home">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/cpdl">
+                    <i class='bx bxs-user-check'></i>
+                    <span class="text">Company Directory - List</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/cpdg">
+                    <i class='bx bxs-caret-down-circle'></i>
+                    <span class="text">Company Directory - Grid</span>
+                </a>
+            </li>
+            <li>
+                <a href="/addpemp">
+                    <i class='bx bxs-add-to-queue'></i>
+                    <span class="text">Add Employees
+                    </span>
+                </a>
+            </li>
+
+        </ul>
+
+        <ul class="side-menu">
+            <li>
+                <a href="/logout" class="logout">
+                    <i class='bx bx-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="notification">
+                <i class='bx bxs-bell'></i>
+                <span class="num">8</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="{{ url_for('static', filename='image/userpp.png') }}" style="width: 30px; height: 30px;">
+            </a>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Company Directories</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="#">Company Directories</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="add-emp-picture"
+                    style="margin-right: 80px; padding: 20px 0px 20px 30px; width: 100%; background-color: white; ">
+
+                    <div class="grid-container">
+
+                        {% for vars in var %}
+
+                        <div class="grid-item"
+                            style="border: 1px solid #eff1f5bb; box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 4px -20px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;">
+                            <form action="/addemp" method="POST">
+                                <div style="background-color: #f7f8fa; width: 100%; padding: 20px 0px;">
+                                    <img src="https://benedicttanzhihang-employee.s3.amazonaws.com/profilepic/{{ vars[9] }}"
+                                        style="display: block; margin-left:auto; margin-right: auto; width: 200px; height: 200px;" />
+                                </div>
+
+                                <div style="padding: 10px 0px 10px 10px;">
+                                    <a href="/viewSpecific/{{ vars[0] }}" style="color: black">
+                                        <p style="font-weight: bold;">{{ vars[1] }}</p>
+                                        <p style="font-size: 13px;">{{ vars[2] }}</p>
+                                        <p style="font-size: 13px;">{{ vars[6] }}</p>
+                                    </a>
+                                </div>
+
+                            </form>
+                        </div>                        
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+
+    <script src="{{ url_for('static', filename='jscript/script.js') }}"></script>
+</body>
+
+</html>

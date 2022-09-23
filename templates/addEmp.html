@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+	<style>
+		/* HIDE RADIO */
+		[type=radio] {
+			position: absolute;
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+
+		/* IMAGE STYLES */
+		[type=radio]+img {
+			cursor: pointer;
+		}
+
+		/* CHECKED STYLES */
+		[type=radio]:checked+img {
+			outline: 3px solid #d3d3d3;
+		}
+
+		input:focus {
+			outline: 2px solid #b4cfe0;
+		}
+	</style>
+
+	<script>
+		var loadFile = function (event) {
+			var image = document.getElementById('output');
+			image.src = URL.createObjectURL(event.target.files[0]);
+		};
+	</script>
+
+	<title>HSIA Management - Add Employees</title>
+</head>
+
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">HSIA HR Panel</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="/home">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/cpdl">
+					<i class='bx bxs-user-check'></i>
+					<span class="text">Company Directory - List</span>
+				</a>
+			</li>
+			<li>
+				<a href="/cpdg">
+                    <i class='bx bxs-caret-down-circle'></i>					
+					<span class="text">Company Directory - Grid</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="/addpemp">
+					<i class='bx bxs-add-to-queue'></i>
+					<span class="text">Add Employees
+                    </span>
+				</a>
+			</li>
+			
+		</ul>
+
+		<ul class="side-menu">
+            <li>
+				<a href="/logout" class="logout">					
+					<i class='bx bx-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu'></i>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="notification">
+				<i class='bx bxs-bell'></i>
+				<span class="num">8</span>
+			</a>
+			<a href="#" class="profile">
+				<img src="{{ url_for('static', filename='image/userpp.png') }}" style="width: 30px; height: 30px;">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Add New Employee</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">Add Employee</a>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+
+			<form action="/addemp" method="POST" enctype="multipart/form-data">
+				<div class="table-data">
+
+					<!-- Upload Image -->
+					<div class="add-emp-picture"
+						style="width: 100%; margin-right: 80px; padding: 20px 0px 0px 30px; background-color: #f4f6fa;">
+
+						<p><input type="file" accept="image/*" name="emp_image_file" id="file" onchange="loadFile(event)"
+								style="display: none;"></p>
+						<p><label for="file" style="cursor: pointer; border: 1px solid red; padding: 3px 20px; color: white; background-color: #895ffe; border-radius: 15px; border: 1px solid #895ffe;">Upload Profile Image</label></p>
+						<p><img id="output" width="200" style="margin: 20px 0px;" /></p>
+
+					</div>
+
+					<!-- Employee Details -->
+					<div class="add-emp"
+						style="width: 100%; margin-right: 80px; padding: 20px 0px 0px 30px; background-color: #f4f6fa;">
+
+						<table style="width: 100%;" border="0">
+							<tbody>
+								<tr>
+									<td style="width: 50%;">
+										<p style="color: #676767;">Full Name</p>
+									</td>
+									<td>
+										<p style="color: #676767; padding-left: 40px;">Gender</p>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding: 7px 0px 25px;">
+										<input name="name" type="text" class="form-control" id="name"
+											style=" border-radius: 7px; border: 1px solid #eef0f4; width:100%; height: 39px; padding-left: 15px;">
+									</td>
+									<td style="padding: 7px 40px 25px;">
+										<label style="margin-right: 12px;">
+											<input type="radio" name="optradio" value="M" checked>
+											<img src="{{ url_for('static', filename='image/maleIcon.png') }}" height="35px;" alt="Male">
+										</label>
+
+										<label>
+											<input type="radio" name="optradio" value="F">
+											<img src="{{ url_for('static', filename='image/femaleIcon.png') }}" height="35px;" alt="Female">
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 50%;">
+										<p style="color: #676767;">IC Number</p>
+									</td>
+									<td>
+										<p style="color: #676767; padding-left: 40px;">Phone Number</p>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding: 7px 0px 25px;">
+										<input name="icNum" type="text" class="form-control" id="icnum"
+											style=" border-radius: 7px; border: 1px solid #eef0f4; width:100%; height: 39px; padding-left: 15px;">
+									</td>
+									<td style="padding: 7px 40px 25px;">
+										<input name="pn" type="text" class="form-control" id="pn"
+											style=" border-radius: 7px; border: 1px solid #eef0f4; width:100%; height: 39px; padding-left: 15px;">
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 50%;">
+										<p style="color: #676767;">Email</p>
+									</td>
+									<td>
+										<p style="color: #676767; padding-left: 40px;">Position</p>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding: 7px 0px 25px;">
+										<input name="email" type="email" class="form-control" id="eml"
+											style=" border-radius: 7px; border: 1px solid #eef0f4; width:100%; height: 39px; padding-left: 15px;">
+									</td>
+									<td style="padding: 7px 40px 25px;">
+										<input name="position" type="text" class="form-control" id="psn"
+											style=" border-radius: 7px; border: 1px solid #eef0f4; width:100%; height: 39px; padding-left: 15px;">
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 50%;">
+										<p style="color: #676767;">Address</p>
+									</td>
+									<td>
+										<p style="color: #676767; padding-left: 40px;">Date of recruitment</p>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding: 7px 0px 25px;">
+										<textarea name="address" class="form-control" id="add"
+											style="resize: none; border-radius: 7px; border: 1px solid #eef0f4; width:100%; height: 100px; padding: 15px;"></textarea>
+									</td>
+									<td style="padding: 7px 40px 25px; vertical-align: top;">
+										<input name="recruitmentDate" type="date" class="form-control" id="psn"
+											style=" border-radius: 7px; border: 1px solid #eef0f4; width:100%; height: 39px; padding-left: 15px;">
+									</td>
+								</tr>
+								<tr>
+									<td style="padding: 0px 0px 25px; vertical-align: top;" colspan="2">
+										<input type="submit" name="submit" value="Save"
+											style="width: 170px; height: 39px; border-radius: 15px; border: none; background-color: #942fec; color: white; margin-right: 25px;">
+										<input type="submit" name="submit" value="Cancel"
+											style="width: 170px; height: 39px; border-radius: 15px; border: none; background-color: #ac93d7; color: white;">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</form>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+
+	<script src="{{ url_for('static', filename='jscript/script.js') }}"></script>
+</body>
+
+</html>
