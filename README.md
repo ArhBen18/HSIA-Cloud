@@ -3,7 +3,7 @@
 
 <br />
 
-User Data
+**User Data** <br />
 #!/bin/bash
 sudo yum update -y
 
